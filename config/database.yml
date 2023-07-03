@@ -17,7 +17,7 @@ development:
   pool: 5
   username: root
   password: Tomo3773
-  host: localhost
+  host: localhostcat
   socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -31,10 +31,10 @@ test:
   host: localhost
 
 production:
-  adapter: mysql2
-  database: DB_server
+  <<: *default
+  # ***** 以下を修正 *****
+  database: aws_rails_server_production
   username: root
-  password: Tomo3773
-  host: localhost
-  socket: /var/lib/mysql/mysql.sock # AmazonLinux2 では MySQL と通信するためのソケットファイルはこれ
+  password: <%= Rails.application.credentials.db[:password] %>
+  host: <%= Rails.application.credentials.db[:hostname] %>
 
